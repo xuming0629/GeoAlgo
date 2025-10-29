@@ -17,6 +17,13 @@ include_directories(${Python3_INCLUDE_DIRS})
 find_package(pybind11 REQUIRED)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+
+# 安装到 build/install
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install path" FORCE)
+endif()
+message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+
 # --------------------------
 # GeoAlgo 库
 # --------------------------
@@ -33,3 +40,27 @@ target_include_directories(GeoAlgo PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # --------------------------
 add_subdirectory(tests)
 add_subdirectory(examples)
+
+
+# --------------------------
+# 安装规则
+# --------------------------
+# 安装静态库
+install(TARGETS GeoAlgo
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+    PUBLIC_HEADER DESTINATION include
+)
+
+# 安装头文件（可选，重复 install PUBLIC_HEADER 时可省略）
+install(DIRECTORY include/ DESTINATION include)
+
+# 安装 example 可执行文件
+# 自动查找 examples 子目录下所有 cpp 文件生成的可执行文件
+file(GLOB EXAMPLE_BIN examples/*.cpp)
+foreach(example_file ${EXAMPLE_BIN})
+    get_filename_component(example_name ${example_file} NAME_WE)
+    install(TARGETS ${example_name} RUNTIME DESTINATION bin)
+endforeach()
+
