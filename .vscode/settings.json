@@ -56,6 +56,9 @@
         "typeindex": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "test_bre": "c"
+        "test_bre": "c",
+        "iomanip": "cpp",
+        "ctime": "cpp",
+        "sstream": "cpp"
     }
 }

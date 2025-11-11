@@ -22,3 +22,12 @@ target_include_directories(example_plot PRIVATE ${PROJECT_SOURCE_DIR}/include ${
 
 add_executable(test_horner test_horner.cpp)
 add_executable(test_bernstein test_bernstein.cpp)
+add_executable(test_bezier test_bezier.cpp)
+target_link_libraries(test_bezier PRIVATE GeoAlgo pybind11::embed ${Python3_LIBRARIES})
+
+#-------------------
+add_executable(example_power_basis example_power_basis.cpp)
+target_link_libraries(example_power_basis PRIVATE GeoAlgo)
+target_include_directories(example_power_basis PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+
