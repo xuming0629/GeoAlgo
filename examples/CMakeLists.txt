@@ -24,6 +24,8 @@ add_executable(test_horner test_horner.cpp)
 add_executable(test_bernstein test_bernstein.cpp)
 add_executable(test_bezier test_bezier.cpp)
 target_link_libraries(test_bezier PRIVATE GeoAlgo pybind11::embed ${Python3_LIBRARIES})
+add_executable(test_rational_bezier test_rational_bezier.cpp)
+target_link_libraries(test_rational_bezier PRIVATE GeoAlgo pybind11::embed ${Python3_LIBRARIES})
 
 #-------------------
 add_executable(example_power_basis example_power_basis.cpp)
